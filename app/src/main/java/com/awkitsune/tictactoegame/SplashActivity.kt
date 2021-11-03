@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.PersistableBundle
 import androidx.constraintlayout.widget.ConstraintLayout
 
 class SplashActivity : AppCompatActivity() {
@@ -24,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
         scheduleSplashScreen()
     }
 
-    fun scheduleSplashScreen(){
+    private fun scheduleSplashScreen(){
         val splashDuration = 1000L
         Handler(Looper.getMainLooper()).postDelayed({
             settings = getSharedPreferences(Constants.ACCOUNT_PREFS_FILE, MODE_PRIVATE)
@@ -33,9 +32,8 @@ class SplashActivity : AppCompatActivity() {
                 val intent = Intent(this@SplashActivity, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
-            }
-            else{
-                settings.edit().putBoolean(Constants.FIRST_LAUNCH_KEY, true)
+            } else {
+                settings.edit().putBoolean(Constants.FIRST_LAUNCH_KEY, true).apply()
                 val intent = Intent(this@SplashActivity, AuthActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)

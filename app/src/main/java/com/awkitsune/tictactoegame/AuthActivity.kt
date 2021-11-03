@@ -35,7 +35,7 @@ class AuthActivity : AppCompatActivity() {
 
                 user.avatarEncoded = Utilities.encodeToBase64(
                     findViewById<ImageView>(R.id.imageViewAvatar)
-                        .drawable.toBitmap())!!
+                        .drawable.toBitmap()).toString()
 
                 val userJson = Gson().toJson(user)
 
@@ -87,10 +87,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        val textInputUsername = findViewById<EditText>(R.id.textFieldUsername)
-        val avatarImage = findViewById<ImageView>(R.id.imageViewAvatar)
-
-        outState.putString(Constants.ACCOUNT_USERNAME_KEY, textInputUsername.text.toString())
+        outState.putParcelable(Constants.USER_PARCELABLE_KEY, user)
 
         super.onSaveInstanceState(outState)
     }
@@ -98,10 +95,7 @@ class AuthActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        val textInputUsername = findViewById<EditText>(R.id.textFieldUsername)
-        val avatarImage = findViewById<ImageView>(R.id.imageViewAvatar)
-
-        textInputUsername.setText(savedInstanceState.get(Constants.ACCOUNT_USERNAME_KEY).toString())
+        user = savedInstanceState.getParcelable(Constants.USER_PARCELABLE_KEY)!!
     }
 
 

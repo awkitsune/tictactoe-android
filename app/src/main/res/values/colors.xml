@@ -3,10 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="accent_primary">#ffa000</color>
-    <color name="accent_primary_dark">#c67100</color>
-    <color name="accent_primary_light">#ffd149</color>
-    <color name="text_on_primary">#000000</color>
+    <color name="accent_primary">#00838f</color>
+    <color name="accent_primary_dark">#005662</color>
+    <color name="accent_primary_light">#4fb3bf</color>
+    <color name="text_on_primary">#ffffff</color>
 
     <color name="accent_secondary">#80deea</color>
     <color name="accent_secondary_dark">#4bacb8</color>

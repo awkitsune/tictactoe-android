@@ -44,19 +44,21 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="2dp"
                 android:paddingBottom="2dp"
-                android:text="@string/username_hint" />
+                android:text="Avatar" />
 
-            <TextView
-                android:id="@+id/textViewUsr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_span="2"
+            <ImageView
+                android:id="@+id/imageViewAv96"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="start"
                 android:paddingLeft="2dp"
                 android:paddingBottom="2dp"
-                tools:text="content" />
+                app:srcCompat="@drawable/ic_baseline_person_96" />
+
         </TableRow>
 
         <TableRow
+            android:id="@+id/tableRowUserdata"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -65,22 +67,19 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="2dp"
                 android:paddingBottom="2dp"
-                android:text="Avatar" />
+                android:text="UserData: " />
 
-            <ImageView
-                android:id="@+id/imageViewAv96"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
+            <TextView
+                android:id="@+id/textViewUData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingLeft="2dp"
                 android:paddingBottom="2dp"
-                app:srcCompat="@drawable/ic_baseline_person_24" />
+                android:textAlignment="textStart"
+                tools:text="content" />
 
-            <ImageView
-                android:id="@+id/imageViewAv192"
-                android:layout_width="192dp"
-                android:layout_height="192dp"
-                app:srcCompat="@drawable/ic_baseline_person_24" />
         </TableRow>
 
     </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

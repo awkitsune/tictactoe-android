@@ -5,4 +5,11 @@
     <string name="login_proceed_message">Do you really would like to login with this nickname</string>
     <string name="login_header">Login</string>
     <string name="login_button">Login</string>
+    <string name="won_lost_string">won/lost:</string>
+    <string name="games_string">games:</string>
+    <string name="userdata_copy_string">Copied userdata into clipboard</string>
+    <string name="action_account">Avatar</string>
+    <string name="action_about">About</string>
+    <string name="action_userdata">Userdata</string>
+    <string name="action_logout">Logout</string>
 </resources>
