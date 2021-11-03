@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">tictactoe</string>
+    <string name="username_hint">Username</string>
+    <string name="login_proceed_title">Logging in</string>
+    <string name="login_proceed_message">Do you really would like to login with this nickname</string>
+    <string name="login_header">Login</string>
+    <string name="login_button">Login</string>
+</resources>
