@@ -28,5 +28,6 @@ class Utilities {
             return BitmapFactory
                 .decodeByteArray(decodedByte, 0, decodedByte.size)
         }
+        fun normalize(value: Float, min: Float, max: Float) = (value - min) / (max - min)
     }
 }
