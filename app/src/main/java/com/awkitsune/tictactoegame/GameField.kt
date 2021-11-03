@@ -69,8 +69,6 @@ class GameField: CoroutineScope {
 
             delay(moveDelay)
         }
-
-
     }
 
     private fun findPosition() {
