@@ -4,7 +4,6 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.*
 import kotlin.random.Random
 
-
 class GameField: CoroutineScope {
     companion object{
         private const val freeCellWeight = 0.7f
@@ -15,6 +14,8 @@ class GameField: CoroutineScope {
         private const val playerMark = -1
         private const val aiMark = 1
         private const val neutralMark = 0
+
+        private const val moveDelay: Long = 500
     }
 
     private val job = Job()
@@ -49,21 +50,27 @@ class GameField: CoroutineScope {
         var coordinatesForMove = Pair(0, 0)
         var maximumWeight = 0.1F
 
-        findPosition()
+        launch {
+            findPosition()
 
-        for (i in 0..2) {
-            for (j in 0..2) {
-                if (weights[i][j] > maximumWeight) {
-                    maximumWeight = weights[i][j]
-                    coordinatesForMove = Pair(i, j)
+            for (i in 0..2) {
+                for (j in 0..2) {
+                    if (weights[i][j] > maximumWeight) {
+                        maximumWeight = weights[i][j]
+                        coordinatesForMove = Pair(i, j)
+                    }
                 }
             }
+
+            aiDraw(coordinatesForMove)
+
+            setWinStates(aiMark)
+            flushWeights()
+
+            delay(moveDelay)
         }
 
-        aiDraw(coordinatesForMove)
 
-        setWinStates(aiMark)
-        flushWeights()
     }
 
     private fun findPosition() {
