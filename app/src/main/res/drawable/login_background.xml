@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/ic_ttt_72dp"
-        android:gravity="left|bottom"
-        android:width="200dp"
-        android:height="200dp"/>
-</layer-list>

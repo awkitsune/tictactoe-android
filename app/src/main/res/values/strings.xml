@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">tictactoe</string>
     <string name="username_hint">Username</string>
-    <string name="login_proceed_title">Logging in</string>
-    <string name="login_proceed_message">Do you really would like to login with this nickname</string>
     <string name="login_header">Login</string>
     <string name="login_button">Login</string>
     <string name="won_lost_string">won/lost:</string>
     <string name="games_string">games:</string>
     <string name="userdata_copy_string">Copied userdata into clipboard</string>
-    <string name="action_account">Avatar</string>
     <string name="action_about">About</string>
-    <string name="action_userdata">Userdata</string>
     <string name="action_logout">Logout</string>
+    <string name="warning_fill_all">Fill all fields first</string>
+    <string name="action_change_theme">Change Theme</string>
+    <string name="dialog_logout_message">This will remove all your data</string>
+    <string name="author_name">by Awkitsune</string>
 </resources>

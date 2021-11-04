@@ -1,26 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewAvatar"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:cardBackgroundColor="@color/accent_secondary_dark"
+        app:cardCornerRadius="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">>
+
+        <ImageView
+            android:id="@+id/imageViewAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_baseline_person_96" />
+
+    </androidx.cardview.widget.CardView>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/mainCoordinator"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarUserInfo"
-            android:layout_width="match_parent"
-            android:layout_height="128dp"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButtonPlayRestart"
@@ -48,7 +61,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="2dp"
         android:textAlignment="textStart"
-        android:textColor="@color/text_on_primary"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewGamesStats"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +73,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         android:text="@string/won_lost_string"
-        android:textColor="@color/text_on_primary"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewGamesAmount"
         app:layout_constraintStart_toStartOf="@+id/textViewGamesAmount"
@@ -73,46 +84,143 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/games_string"
-        android:textColor="@color/text_on_primary"
         app:layout_constraintBottom_toBottomOf="@+id/cardViewAvatar"
         app:layout_constraintStart_toEndOf="@+id/cardViewAvatar"
         tools:text="games: 0" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewAvatar"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+    <TableLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:cardBackgroundColor="@color/accent_secondary_dark"
-        app:cardCornerRadius="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="96dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">>
+        app:layout_constraintTop_toBottomOf="@+id/cardViewAvatar">
 
-        <ImageView
-            android:id="@+id/imageViewAvatar"
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_baseline_person_96" />
+            android:layout_weight="1">
 
-    </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/f00"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:foregroundTint="@color/black"
+                android:padding="16dp"
+                android:scaleType="centerCrop" />
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/f10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:foregroundTint="@color/black"
+                android:padding="16dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_baseline_clear_24" />
+
+            <ImageView
+                android:id="@+id/f20"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:foregroundTint="@color/black"
+                android:padding="16dp"
+                android:scaleType="centerCrop" />
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/f01"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:foregroundTint="@color/black"
+                android:padding="16dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_baseline_panorama_fish_eye_24" />
+
+            <ImageView
+                android:id="@+id/f11"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:foregroundTint="@color/black"
+                android:padding="16dp"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/f21"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:foregroundTint="@color/black"
+                android:padding="16dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_baseline_panorama_fish_eye_24" />
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <ImageView
+                android:id="@+id/f02"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:foregroundTint="@color/black"
+                android:padding="16dp"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/f12"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:foregroundTint="@color/black"
+                android:padding="16dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_baseline_clear_24" />
+
+            <ImageView
+                android:id="@+id/f22"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:foregroundTint="@color/black"
+                android:padding="16dp"
+                android:scaleType="centerCrop" />
+        </TableRow>
 
     </TableLayout>
 

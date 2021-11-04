@@ -1,12 +1,18 @@
 package com.awkitsune.tictactoegame
 
+import android.content.ContentResolver
 import android.graphics.Bitmap
 import android.util.Base64
 import android.util.Log
 import java.io.ByteArrayOutputStream
 import android.graphics.BitmapFactory
-
-
+import android.graphics.Matrix
+import android.media.ThumbnailUtils
+import android.net.Uri
+import android.os.CancellationSignal
+import android.util.Size
+import java.io.File
+import java.net.URI
 
 
 class Utilities {
@@ -28,6 +34,7 @@ class Utilities {
             return BitmapFactory
                 .decodeByteArray(decodedByte, 0, decodedByte.size)
         }
+
         fun normalize(value: Float, min: Float, max: Float) = (value - min) / (max - min)
     }
 }

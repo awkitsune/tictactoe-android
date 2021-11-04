@@ -1,5 +1,6 @@
 package com.awkitsune.tictactoegame
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -10,9 +11,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.graphics.drawable.toBitmap
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import java.net.URI
 
 class AuthActivity : AppCompatActivity() {
 
@@ -20,8 +24,10 @@ class AuthActivity : AppCompatActivity() {
     private var user = User()
 
     private val selectImageFromGalleryResult =
-        registerForActivityResult(ActivityResultContracts.GetContent()) {uri: Uri? ->
-            uri?.let { previewImage.setImageURI(uri) }
+        registerForActivityResult( ActivityResultContracts.GetContent() ) { uri: Uri? ->
+            uri?.let {
+                previewImage.setImageURI(uri)
+            }
     }
 
     private val previewImage by lazy { findViewById<ImageView>(R.id.imageViewAvatar) }
@@ -55,7 +61,11 @@ class AuthActivity : AppCompatActivity() {
 
                 this.finish()
             } else {
-
+                Snackbar.make(
+                    findViewById(R.id.loginConstraint),
+                    R.string.warning_fill_all,
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
 
 
@@ -63,9 +73,12 @@ class AuthActivity : AppCompatActivity() {
 
         findViewById<ImageButton>(R.id.imageButtonSelectAvatar).setOnClickListener{
             selectImageFromGallery()
-            findViewById<ImageButton>(R.id.imageButtonClearAvatar).postDelayed(
-                { findViewById<ImageButton>(R.id.imageButtonClearAvatar).visibility = View.VISIBLE },
-                200)
+
+            findViewById<ImageButton>(R.id.imageButtonClearAvatar).post {
+                findViewById<ImageButton>(
+                    R.id.imageButtonClearAvatar
+                ).visibility = View.VISIBLE
+            }
 
         }
 

@@ -1,21 +1,22 @@
 package com.awkitsune.tictactoegame
 
+import android.content.Intent
 import android.content.SharedPreferences
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
 import android.widget.*
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var settings: SharedPreferences
 
     private var user = User()
-
-    private val avatarImage by lazy { findViewById<ImageView>(R.id.imageViewAvatar) }
 
     private fun setDataIntoViews() {
         findViewById<ImageView>(R.id.imageViewAvatar).setImageBitmap(
@@ -35,6 +36,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setOnClickListeners(){
+        findViewById<ImageView>(R.id.f00).setOnClickListener { fieldClicked() }
+        findViewById<ImageView>(R.id.f10).setOnClickListener { fieldClicked() }
+        findViewById<ImageView>(R.id.f20).setOnClickListener { fieldClicked() }
+        findViewById<ImageView>(R.id.f01).setOnClickListener { fieldClicked() }
+        findViewById<ImageView>(R.id.f11).setOnClickListener { fieldClicked() }
+        findViewById<ImageView>(R.id.f21).setOnClickListener { fieldClicked() }
+        findViewById<ImageView>(R.id.f02).setOnClickListener { fieldClicked() }
+        findViewById<ImageView>(R.id.f12).setOnClickListener { fieldClicked() }
+        findViewById<ImageView>(R.id.f22).setOnClickListener { fieldClicked() }
+
+        findViewById<FloatingActionButton>(R.id.floatingActionButtonPlayRestart)
+            .setOnClickListener {
+
+            }
+    }
+
+    private fun fieldClicked(){
 
     }
 
@@ -63,14 +81,48 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item!!.itemId){
-            R.id.app_bar_about ->
-                Toast.makeText(
-                    applicationContext,
-                    "TODO open about activity",
-                    Toast.LENGTH_SHORT)
+        when (item.itemId){
+            R.id.app_bar_about -> {
+                val aboutAlertDialog = LayoutInflater.from(this)
+                    .inflate(R.layout.dialog_about, null, false)
+
+                MaterialAlertDialogBuilder(this)
+                    .setView(aboutAlertDialog)
+                    .setPositiveButton(android.R.string.ok) {_, _ -> }
                     .show()
+            }
+
+            R.id.app_bar_logout -> {
+                MaterialAlertDialogBuilder(this)
+                    .setMessage(R.string.dialog_logout_message)
+                    .setPositiveButton(
+                        android.R.string.ok
+                    ) { dialog, id ->
+                        settings.edit()
+                            .putBoolean(Constants.FIRST_LAUNCH_KEY, true)
+                            .apply()
+
+                        startActivity(
+                            Intent(this@MainActivity, AuthActivity::class.java)
+                        )
+                        finish()
+                    }
+                    .setNegativeButton(
+                        android.R.string.cancel
+                    ) { _, _ -> }
+                    .setIcon(R.drawable.ic_baseline_delete_forever_24)
+                    .show()
+            }
         }
         return true
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
     }
 }
