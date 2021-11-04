@@ -2,6 +2,7 @@ package com.awkitsune.tictactoegame
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
@@ -88,7 +89,12 @@ class MainActivity : AppCompatActivity() {
 
                 MaterialAlertDialogBuilder(this)
                     .setView(aboutAlertDialog)
-                    .setPositiveButton(android.R.string.ok) {_, _ -> }
+                    .setNeutralButton(R.string.project_on_github) { _, _ ->
+                        startActivity(
+                            Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_link)))
+                        )
+                    }
+                    .setNeutralButtonIcon(getDrawable(R.drawable.ic_github_logo))
                     .show()
             }
 

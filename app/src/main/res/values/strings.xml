@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">tictactoe</string>
+    <string name="app_name" translatable="false">tictactoe</string>
     <string name="username_hint">Username</string>
     <string name="login_header">Login</string>
     <string name="login_button">Login</string>
@@ -9,7 +9,8 @@
     <string name="action_about">About</string>
     <string name="action_logout">Logout</string>
     <string name="warning_fill_all">Fill all fields first</string>
-    <string name="action_change_theme">Change Theme</string>
     <string name="dialog_logout_message">This will remove all your data</string>
     <string name="author_name">by Awkitsune</string>
+    <string name="project_on_github">Project on GitHub</string>
+    <string name="github_link" translatable="false">https://github.com/awkitsune/tictactoe-android</string>
 </resources>
