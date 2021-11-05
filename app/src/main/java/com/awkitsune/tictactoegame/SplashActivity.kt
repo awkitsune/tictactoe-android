@@ -15,11 +15,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        findViewById<ConstraintLayout>(R.id.splash).setOnClickListener {
-            val intent = Intent(this@SplashActivity, SharedPrefsDebugger::class.java)
-            startActivity(intent)
-        }
-
         scheduleSplashScreen()
     }
 
