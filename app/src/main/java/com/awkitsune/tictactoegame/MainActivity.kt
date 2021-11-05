@@ -2,7 +2,6 @@ package com.awkitsune.tictactoegame
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,18 +9,31 @@ import android.view.*
 import android.widget.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CoroutineScope {
+    private val jobSaveUserdata = Job()
+
     private lateinit var settings: SharedPreferences
 
     private var user = User()
     private var gameField = GameField()
 
     private fun setDataIntoViews() {
-        findViewById<ImageView>(R.id.imageViewAvatar).setImageBitmap(
-            Utilities.decodeBase64(user.avatarEncoded)
-        )
+        launch {
+            findViewById<ImageView>(R.id.imageViewAvatar).post {
+                findViewById<ImageView>(R.id.imageViewAvatar).setImageBitmap(
+                    Utilities.decodeBase64(user.avatarEncoded)
+                )
+            }
+        }
+
         findViewById<TextView>(R.id.textViewUsername).text =
             user.username
 
@@ -39,24 +51,24 @@ class MainActivity : AppCompatActivity() {
         val tableGameField = findViewById<TableLayout>(R.id.tableGameField)
 
 
-        findViewById<ImageView>(R.id.f00)
-            .setOnClickListener { fieldClicked(findViewById<ImageView>(R.id.f00)) }
-        findViewById<ImageView>(R.id.f10)
-            .setOnClickListener { fieldClicked(findViewById<ImageView>(R.id.f10)) }
-        findViewById<ImageView>(R.id.f20)
-            .setOnClickListener { fieldClicked(findViewById<ImageView>(R.id.f20)) }
-        findViewById<ImageView>(R.id.f01)
-            .setOnClickListener { fieldClicked(findViewById<ImageView>(R.id.f01)) }
-        findViewById<ImageView>(R.id.f11)
-            .setOnClickListener { fieldClicked(findViewById<ImageView>(R.id.f11)) }
-        findViewById<ImageView>(R.id.f21)
-            .setOnClickListener { fieldClicked(findViewById<ImageView>(R.id.f21)) }
-        findViewById<ImageView>(R.id.f02)
-            .setOnClickListener { fieldClicked(findViewById<ImageView>(R.id.f02)) }
-        findViewById<ImageView>(R.id.f12)
-            .setOnClickListener { fieldClicked(findViewById<ImageView>(R.id.f12)) }
-        findViewById<ImageView>(R.id.f22)
-            .setOnClickListener { fieldClicked(findViewById<ImageView>(R.id.f22)) }
+        findViewById<Button>(R.id.f00)
+            .setOnClickListener { fieldClicked(findViewById<Button>(R.id.f00)) }
+        findViewById<Button>(R.id.f10)
+            .setOnClickListener { fieldClicked(findViewById<Button>(R.id.f10)) }
+        findViewById<Button>(R.id.f20)
+            .setOnClickListener { fieldClicked(findViewById<Button>(R.id.f20)) }
+        findViewById<Button>(R.id.f01)
+            .setOnClickListener { fieldClicked(findViewById<Button>(R.id.f01)) }
+        findViewById<Button>(R.id.f11)
+            .setOnClickListener { fieldClicked(findViewById<Button>(R.id.f11)) }
+        findViewById<Button>(R.id.f21)
+            .setOnClickListener { fieldClicked(findViewById<Button>(R.id.f21)) }
+        findViewById<Button>(R.id.f02)
+            .setOnClickListener { fieldClicked(findViewById<Button>(R.id.f02)) }
+        findViewById<Button>(R.id.f12)
+            .setOnClickListener { fieldClicked(findViewById<Button>(R.id.f12)) }
+        findViewById<Button>(R.id.f22)
+            .setOnClickListener { fieldClicked(findViewById<Button>(R.id.f22)) }
 
         findViewById<FloatingActionButton>(R.id.floatingActionButtonPlayRestart)
             .setOnClickListener {
@@ -64,6 +76,8 @@ class MainActivity : AppCompatActivity() {
 
                 findViewById<FloatingActionButton>(R.id.floatingActionButtonPlayRestart)
                     .setImageResource(R.drawable.ic_baseline_refresh_24)
+
+                updateScores()
 
                 if (gameField.isWon) {
                     fieldRestart()
@@ -78,6 +92,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fieldRestart() {
+        user.gamesAmount++
+
         gameField.flush()
         updateFieldButtons(gameField.field)
         gameField.isWon = false
@@ -85,42 +101,52 @@ class MainActivity : AppCompatActivity() {
 
     private fun winMessage() {
         if (gameField.whoWin() == GameField.playerMark) {
-            //player message
+            Snackbar.make(
+                findViewById(R.id.mainConstraint),
+                "${ user.username } ${ getString(R.string.message_win) } ${ getString(R.string.string_ai_name) } ",
+                Snackbar.LENGTH_LONG)
+                .setAnchorView(findViewById(R.id.floatingActionButtonPlayRestart))
+                .show()
 
             user.gamesWon++
-            user.gamesAmount++
 
             updateScores()
         }
         if (gameField.whoWin() == GameField.aiMark) {
-            //ai message
+            Snackbar.make(
+                findViewById(R.id.mainConstraint),
+                "${ getString(R.string.string_ai_name) } ${ getString(R.string.message_win) } ${ user.username } ",
+                Snackbar.LENGTH_LONG)
+                .setAnchorView(findViewById(R.id.floatingActionButtonPlayRestart))
+                .show()
 
             user.gamesLost++
-            user.gamesAmount++
 
             updateScores()
         }
     }
 
     private fun fieldClicked(button: View){
-        when (button.id) {
-            R.id.f00 -> gameField.playerDraw(0, 0)
-            R.id.f01 -> gameField.playerDraw(0, 1)
-            R.id.f02 -> gameField.playerDraw(0, 2)
-            R.id.f10 -> gameField.playerDraw(1, 0)
-            R.id.f11 -> gameField.playerDraw(1, 1)
-            R.id.f12 -> gameField.playerDraw(1, 2)
-            R.id.f20 -> gameField.playerDraw(2, 0)
-            R.id.f21 -> gameField.playerDraw(2, 1)
-            R.id.f22 -> gameField.playerDraw(2, 2)
-        }
+        if (!gameField.isWon) {
+            when (button.id) {
+                R.id.f00 -> gameField.playerDraw(0, 0)
+                R.id.f01 -> gameField.playerDraw(0, 1)
+                R.id.f02 -> gameField.playerDraw(0, 2)
+                R.id.f10 -> gameField.playerDraw(1, 0)
+                R.id.f11 -> gameField.playerDraw(1, 1)
+                R.id.f12 -> gameField.playerDraw(1, 2)
+                R.id.f20 -> gameField.playerDraw(2, 0)
+                R.id.f21 -> gameField.playerDraw(2, 1)
+                R.id.f22 -> gameField.playerDraw(2, 2)
+            }
 
-        updateFieldButtons(gameField.field)
-        winMessage()
+            updateFieldButtons(gameField.field)
+            winMessage()
+        }
     }
 
     private fun updateFieldButtons(field: Array<Array<Int>>) {
-        var icons = Array(3) { Array(3) { 0 } }
+        val icons = Array(3) { Array(3) { 0 } }
 
         for (i in 0..2) {
             for (j in 0..2) {
@@ -133,15 +159,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<ImageView>(R.id.f00).setImageResource( icons[0][0] )
-        findViewById<ImageView>(R.id.f10).setImageResource( icons[1][0] )
-        findViewById<ImageView>(R.id.f20).setImageResource( icons[2][0] )
-        findViewById<ImageView>(R.id.f01).setImageResource( icons[0][1] )
-        findViewById<ImageView>(R.id.f11).setImageResource( icons[1][1] )
-        findViewById<ImageView>(R.id.f21).setImageResource( icons[2][1] )
-        findViewById<ImageView>(R.id.f02).setImageResource( icons[0][2] )
-        findViewById<ImageView>(R.id.f12).setImageResource( icons[1][2] )
-        findViewById<ImageView>(R.id.f22).setImageResource( icons[2][2] )
+        findViewById<Button>(R.id.f00).setBackgroundResource( icons[0][0] )
+        findViewById<Button>(R.id.f10).setBackgroundResource( icons[1][0] )
+        findViewById<Button>(R.id.f20).setBackgroundResource( icons[2][0] )
+        findViewById<Button>(R.id.f01).setBackgroundResource( icons[0][1] )
+        findViewById<Button>(R.id.f11).setBackgroundResource( icons[1][1] )
+        findViewById<Button>(R.id.f21).setBackgroundResource( icons[2][1] )
+        findViewById<Button>(R.id.f02).setBackgroundResource( icons[0][2] )
+        findViewById<Button>(R.id.f12).setBackgroundResource( icons[1][2] )
+        findViewById<Button>(R.id.f22).setBackgroundResource( icons[2][2] )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -218,4 +244,22 @@ class MainActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
 
     }
+
+    override fun onPause() {
+        launch {
+            val userJson = Gson().toJson(user)
+
+            settings.edit()
+                .putString(
+                    Constants.USER_PARCELABLE_KEY,
+                    userJson
+                )
+                .apply()
+        }
+
+        super.onPause()
+    }
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO + jobSaveUserdata
 }

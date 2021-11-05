@@ -3,18 +3,18 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="accent_primary">#00838f</color>
-    <color name="accent_primary_dark">#005662</color>
-    <color name="accent_primary_light">#4fb3bf</color>
-    <color name="text_on_primary">#ffffff</color>
+    <color name="accent_primary">#4bb5ab</color>
+    <color name="accent_primary_dark">#00857c</color>
+    <color name="accent_primary_light">#80e8dd</color>
+    <color name="text_on_primary">#000000</color>
 
-    <color name="accent_secondary">#80deea</color>
-    <color name="accent_secondary_dark">#4bacb8</color>
-    <color name="accent_secondary_light">#b4ffff</color>
+    <color name="accent_secondary">#c7e5c8</color>
+    <color name="accent_secondary_dark">#96b397</color>
+    <color name="accent_secondary_light">#fafffb</color>
     <color name="text_on_secondary">#000000</color>
 
-    <color name="semi_transparent_black">#88000000</color>
-    <color name="semi_transparent_white">#88ffffff</color>
+    <color name="semi_transparent_black">#a0000000</color>
+    <color name="semi_transparent_white">#a0ffffff</color>
 
     <color name="transparent">#0000</color>
 

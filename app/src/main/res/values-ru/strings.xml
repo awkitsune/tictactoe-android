@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="username_hint">Имя пользователя</string>
+    <string name="login_header">Вход</string>
+    <string name="login_button">Войти</string>
+    <string name="won_lost_string">побед/поражений:</string>
+    <string name="games_string">игр:</string>
+    <string name="userdata_copy_string">Данные пользователя скопированы в буфер обмена</string>
+    <string name="action_about">О приложении</string>
+    <string name="action_logout">Выйти</string>
+    <string name="warning_fill_all">Сначала заполните все поля</string>
+    <string name="dialog_logout_message">Это удалит все ваши данные</string>
+    <string name="project_on_github">Проект на GitHub</string>
+    <string name="dialog_restart_message">Вы действительно хотите перезапустить игру?</string>
+    <string name="message_win">победил</string>
+    <string name="string_ai_name">Компутер</string>
+</resources>

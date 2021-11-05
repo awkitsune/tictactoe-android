@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainConstraint"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/mainCoordinator"
@@ -20,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:focusable="auto"
             app:fabSize="normal"
             app:layout_anchor="@id/bottomAppBarGame"
             app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
@@ -44,7 +46,7 @@
         app:cardBackgroundColor="@color/accent_secondary_dark"
         app:cardCornerRadius="48dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">>
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageViewAvatar"
@@ -96,6 +98,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="96dp"
+        android:background="@drawable/field_bg"
+        android:backgroundTint="@color/accent_primary"
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -110,39 +114,41 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <ImageView
+            <Button
                 android:id="@+id/f00"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@color/transparent"
                 android:foregroundTint="@color/black"
                 android:padding="16dp"
-                android:scaleType="centerCrop" />
+                app:rippleColor="@color/accent_secondary_dark"
+                app:strokeColor="@color/accent_secondary" />
 
-            <ImageView
+            <Button
                 android:id="@+id/f10"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@color/transparent"
                 android:foregroundTint="@color/black"
                 android:padding="16dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_baseline_clear_24" />
+                app:rippleColor="@color/accent_secondary_dark"
+                app:strokeColor="@color/accent_secondary" />
 
-            <ImageView
+            <Button
                 android:id="@+id/f20"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@color/transparent"
                 android:foregroundTint="@color/black"
                 android:padding="16dp"
-                android:scaleType="centerCrop" />
+                app:rippleColor="@color/accent_secondary_dark"
+                app:strokeColor="@color/accent_secondary" />
         </TableRow>
 
         <TableRow
@@ -150,40 +156,41 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <ImageView
+            <Button
                 android:id="@+id/f01"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@color/transparent"
                 android:foregroundTint="@color/black"
                 android:padding="16dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_baseline_panorama_fish_eye_24" />
+                app:rippleColor="@color/accent_secondary_dark"
+                app:strokeColor="@color/accent_secondary" />
 
-            <ImageView
+            <Button
                 android:id="@+id/f11"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@color/transparent"
                 android:foregroundTint="@color/black"
                 android:padding="16dp"
-                android:scaleType="centerCrop" />
+                app:rippleColor="@color/accent_secondary_dark"
+                app:strokeColor="@color/accent_secondary" />
 
-            <ImageView
+            <Button
                 android:id="@+id/f21"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@color/transparent"
                 android:foregroundTint="@color/black"
                 android:padding="16dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_baseline_panorama_fish_eye_24" />
+                app:rippleColor="@color/accent_secondary_dark"
+                app:strokeColor="@color/accent_secondary" />
         </TableRow>
 
         <TableRow
@@ -191,39 +198,41 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <ImageView
+            <Button
                 android:id="@+id/f02"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@color/transparent"
                 android:foregroundTint="@color/black"
                 android:padding="16dp"
-                android:scaleType="centerCrop" />
+                app:rippleColor="@color/accent_secondary_dark"
+                app:strokeColor="@color/accent_secondary" />
 
-            <ImageView
+            <Button
                 android:id="@+id/f12"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@color/transparent"
                 android:foregroundTint="@color/black"
                 android:padding="16dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_baseline_clear_24" />
+                app:rippleColor="@color/accent_secondary_dark"
+                app:strokeColor="@color/accent_secondary" />
 
-            <ImageView
+            <Button
                 android:id="@+id/f22"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@color/transparent"
                 android:foregroundTint="@color/black"
                 android:padding="16dp"
-                android:scaleType="centerCrop" />
+                app:rippleColor="@color/accent_secondary_dark"
+                app:strokeColor="@color/accent_secondary" />
         </TableRow>
 
     </TableLayout>

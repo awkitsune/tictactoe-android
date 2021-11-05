@@ -1,24 +1,31 @@
 package com.awkitsune.tictactoegame
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.*
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import androidx.activity.result.contract.ActivityResultContract
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.graphics.drawable.toBitmap
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
-import java.net.URI
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
+import android.os.Build
 
-class AuthActivity : AppCompatActivity() {
+import android.graphics.ImageDecoder
+import java.lang.Exception
+
+
+class AuthActivity : AppCompatActivity(), CoroutineScope {
+    private val jobSaveUserdata = Job()
 
     private lateinit var settings: SharedPreferences
     private var user = User()
@@ -26,7 +33,41 @@ class AuthActivity : AppCompatActivity() {
     private val selectImageFromGalleryResult =
         registerForActivityResult( ActivityResultContracts.GetContent() ) { uri: Uri? ->
             uri?.let {
-                previewImage.setImageURI(uri)
+                val avLoading = findViewById<ProgressBar>(R.id.progressBarAvatarLoading)
+                launch {
+                    avLoading.post {
+                        avLoading.visibility = View.VISIBLE
+                    }
+                    var avatar: Bitmap? = null
+                    val contentResolver = contentResolver
+
+                    try {
+                        avatar = if (Build.VERSION.SDK_INT < 28) {
+                            MediaStore.Images.Media.getBitmap(contentResolver, uri)
+                        } else {
+                            val source: ImageDecoder.Source =
+                                ImageDecoder.createSource(contentResolver, uri)
+                            ImageDecoder.decodeBitmap(source)
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+
+                    val resizedAvatar =
+                        Bitmap.createScaledBitmap(
+                            avatar!!,
+                            256, 256,
+                            true
+                        )
+
+                    previewImage.post{
+                        previewImage.setImageBitmap(resizedAvatar)
+                    }
+
+                    avLoading.post {
+                        avLoading.visibility = View.GONE
+                    }
+                }
             }
     }
 
@@ -34,41 +75,42 @@ class AuthActivity : AppCompatActivity() {
 
     private fun setOnClickListeners(){
         findViewById<Button>(R.id.buttonLogin).setOnClickListener {
-            val textInputUsername = findViewById<EditText>(R.id.textFieldUsername)
+            launch {
+                val textInputUsername = findViewById<EditText>(R.id.textFieldUsername)
 
-            if (textInputUsername.length() > 0){
-                user.username = textInputUsername.text.toString()
+                if (textInputUsername.length() > 0){
+                    user.username = textInputUsername.text.toString()
 
-                user.avatarEncoded = Utilities.encodeToBase64(
-                    findViewById<ImageView>(R.id.imageViewAvatar)
-                        .drawable.toBitmap()).toString()
 
-                val userJson = Gson().toJson(user)
+                    user.avatarEncoded = Utilities.encodeToBase64(
+                        findViewById<ImageView>(R.id.imageViewAvatar)
+                            .drawable.toBitmap()).toString()
 
-                settings.edit()
-                    .putString(
-                        Constants.USER_PARCELABLE_KEY,
-                        userJson
-                    )
-                    .putBoolean(
-                        Constants.FIRST_LAUNCH_KEY,
-                        false
-                    )
-                    .apply()
+                    val userJson = Gson().toJson(user)
 
-                val intent = Intent(this@AuthActivity, MainActivity::class.java)
-                startActivity(intent)
+                    settings.edit()
+                        .putString(
+                            Constants.USER_PARCELABLE_KEY,
+                            userJson
+                        )
+                        .putBoolean(
+                            Constants.FIRST_LAUNCH_KEY,
+                            false
+                        )
+                        .apply()
 
-                this.finish()
-            } else {
-                Snackbar.make(
-                    findViewById(R.id.loginConstraint),
-                    R.string.warning_fill_all,
-                    Snackbar.LENGTH_LONG
-                ).show()
+                    val intent = Intent(this@AuthActivity, MainActivity::class.java)
+                    startActivity(intent)
+
+                    finish()
+                } else {
+                    Snackbar.make(
+                        findViewById(R.id.loginConstraint),
+                        R.string.warning_fill_all,
+                        Snackbar.LENGTH_LONG
+                    ).setAnchorView(findViewById(R.id.buttonLogin)).show()
+                }
             }
-
-
         }
 
         findViewById<ImageButton>(R.id.imageButtonSelectAvatar).setOnClickListener{
@@ -110,6 +152,9 @@ class AuthActivity : AppCompatActivity() {
 
         user = savedInstanceState.getParcelable(Constants.USER_PARCELABLE_KEY)!!
     }
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO + jobSaveUserdata
 
 
 }
