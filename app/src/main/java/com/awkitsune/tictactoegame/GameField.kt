@@ -4,33 +4,38 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.*
 import kotlin.random.Random
 
-class GameField: CoroutineScope {
+class GameField {
     companion object{
         private const val freeCellWeight = 0.7f
         private const val winCellWeight = 0.5f
         private const val suppressCellWeight = 0.3f
         private const val neutralWeight = 0.0f
 
-        private const val playerMark = -1
-        private const val aiMark = 1
-        private const val neutralMark = 0
+        const val playerMark = -1
+        const val aiMark = 1
+        const val neutralMark = 0
 
         private const val moveDelay: Long = 500
     }
 
-    private val job = Job()
-
-    private var field = Array(3) { Array(3) { neutralMark } }
+    var field = Array(3) { Array(3) { neutralMark } }
     private var weights = Array(3) { Array(3) { neutralWeight } }
 
     var isWon = true
     var isPlayerWon = false
 
-    fun flushField() {
+    fun flush() {
         field = Array(3) { Array(3) { neutralMark } }
         flushWeights()
     }
     private fun flushWeights() { weights = Array(3) { Array(3) { neutralWeight } } }
+
+    fun whoWin(): Int {
+        if (isWon && isPlayerWon) return playerMark
+        if (isWon && !isPlayerWon) return aiMark
+
+        return neutralMark
+    }
 
     private fun aiDraw(coordinates: Pair<Int, Int>){
         if (field[coordinates.first][coordinates.second] == neutralMark){
@@ -50,25 +55,21 @@ class GameField: CoroutineScope {
         var coordinatesForMove = Pair(0, 0)
         var maximumWeight = 0.1F
 
-        launch {
-            findPosition()
+        findPosition()
 
-            for (i in 0..2) {
-                for (j in 0..2) {
-                    if (weights[i][j] > maximumWeight) {
-                        maximumWeight = weights[i][j]
-                        coordinatesForMove = Pair(i, j)
-                    }
+        for (i in 0..2) {
+            for (j in 0..2) {
+                if (weights[i][j] > maximumWeight) {
+                    maximumWeight = weights[i][j]
+                    coordinatesForMove = Pair(i, j)
                 }
             }
-
-            aiDraw(coordinatesForMove)
-
-            setWinStates(aiMark)
-            flushWeights()
-
-            delay(moveDelay)
         }
+
+        aiDraw(coordinatesForMove)
+
+        setWinStates(aiMark)
+        flushWeights()
     }
 
     private fun findPosition() {
@@ -210,7 +211,4 @@ class GameField: CoroutineScope {
 
         return false
     }
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Default + job
 }

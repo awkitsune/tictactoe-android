@@ -13,4 +13,5 @@
     <string name="author_name">by Awkitsune</string>
     <string name="project_on_github">Project on GitHub</string>
     <string name="github_link" translatable="false">https://github.com/awkitsune/tictactoe-android</string>
+    <string name="dialog_restart_message">Do you reall would like to restart game?</string>
 </resources>
