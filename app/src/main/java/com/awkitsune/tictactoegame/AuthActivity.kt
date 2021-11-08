@@ -13,14 +13,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.graphics.drawable.toBitmap
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import android.os.Build
 
 import android.graphics.ImageDecoder
+import kotlinx.coroutines.*
 import java.lang.Exception
 
 
@@ -154,7 +151,7 @@ class AuthActivity : AppCompatActivity(), CoroutineScope {
     }
 
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.IO + jobSaveUserdata
+        get() = Dispatchers.Default + jobSaveUserdata
 
 
 }
